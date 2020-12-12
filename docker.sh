@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 
 echo "Installing docker ..."
 sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
@@ -13,8 +14,8 @@ echo "Configuring profile ..."
 cat <<EOT >> ~/.profile
 
 # Start Docker daemon automatically when logging in if not running.
-RUNNING=`ps aux | grep dockerd | grep -v grep`
-if [ -z "$RUNNING" ]; then
+RUNNING=\`ps aux | grep dockerd | grep -v grep\`
+if [ -z "\$RUNNING" ]; then
     sudo dockerd > /dev/null 2>&1 &
     disown
 fi

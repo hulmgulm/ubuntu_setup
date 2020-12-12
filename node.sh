@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 
 echo "Installing NodeJs ..."
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -

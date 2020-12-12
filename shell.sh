@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 
 echo "Updating installation ..."
 sudo apt update
@@ -43,10 +44,10 @@ echo 'hulmi ALL=(ALL) NOPASSWD: /usr/sbin/update-motd' | sudo EDITOR='tee -a' vi
 cat <<EOT >> ~/.profile
 
 # add VS Code to path on WSL
-if [[ `uname -a` == *"microsoft"* ]]; then
+if [[ \`uname -a\` == *"microsoft"* ]]; then
   for directory in /mnt/c/Users/*/ ; do
-    if [ -f "${directory}AppData/Local/Programs/Microsoft VS Code/bin/code" ]; then
-      PATH="$PATH:${directory}AppData/Local/Programs/Microsoft VS Code/bin"
+    if [ -f "\${directory}AppData/Local/Programs/Microsoft VS Code/bin/code" ]; then
+      PATH="\$PATH:\${directory}AppData/Local/Programs/Microsoft VS Code/bin"
     fi
   done
 fi
@@ -55,4 +56,7 @@ fi
 sudo /usr/sbin/update-motd
 EOT
 
+zsh
+
 source ~/.zshrc
+
