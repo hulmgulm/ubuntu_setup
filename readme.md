@@ -11,4 +11,9 @@ Installs NodeJs 14.x
 Installs docker and docker-compose. Docker dockerd will get started automatically when WLS is opened
 
 # docker-compose.yml
-Dev setup containers
+Dev setup containers.
+
+Run the following command to force pull of images:
+
+`docker-compose up --force-recreate --build -d`
+
