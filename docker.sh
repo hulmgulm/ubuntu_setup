@@ -10,6 +10,10 @@ sudo apt install -y docker-ce
 sudo usermod -aG docker ${USER}
 echo 'hulmi ALL=(ALL) NOPASSWD: /usr/bin/dockerd' | sudo EDITOR='tee -a' visudo
 
+echo "Installing docker-compose ..."
+sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
 echo "Configuring profile ..."
 cat <<EOT >> ~/.profile
 
