@@ -1,0 +1,56 @@
+version: "3.9"
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisVolume:/data
+    restart: always
+    command: redis-server --appendonly yes
+  redis-commander:
+    image: rediscommander/redis-commander
+    ports:
+      - "9100:8081"
+    restart: always
+    environment:
+      REDIS_HOST: redis
+    links:
+    - redis
+  postgres:
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresVolume:/var/lib/postgresql/data
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: opsbridge
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "9900:80"
+    volumes:
+      - pgadminVolume:/var/lib/pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: opsbridge
+    links:
+    - postgres
+  portainer:
+    image: portainer/portainer
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+  swagger:
+    image: swaggerapi/swagger-editor
+    ports:
+      - "9200:8080"
+    restart: always
+volumes:
+  redisVolume: {}
+  postgresVolume: {}
+  pgadminVolume: {}
