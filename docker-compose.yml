@@ -50,6 +50,13 @@ services:
     ports:
       - "9200:8080"
     restart: always
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+    restart: always
 volumes:
   redisVolume: {}
   postgresVolume: {}
