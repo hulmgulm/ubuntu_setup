@@ -11,7 +11,7 @@ services:
   redis-commander:
     image: rediscommander/redis-commander
     ports:
-      - "9100:8081"
+      - "8081"
     restart: always
     environment:
       REDIS_HOST: redis
@@ -50,7 +50,7 @@ services:
   swagger:
     image: swaggerapi/swagger-editor
     ports:
-      - "9200:8080"
+      - "8080"
     restart: always
   nginx:
     image: nginx:alpine
@@ -63,6 +63,8 @@ services:
     links:
       - portainer
       - pgadmin
+      - redis-commander
+      - swagger
     restart: always
 volumes:
   redisVolume: {}
