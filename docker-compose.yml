@@ -39,11 +39,13 @@ services:
     links:
     - postgres
   portainer:
-    image: portainer/portainer
+    image: portainer/portainer-ce
+    command: -H unix:///var/run/docker.sock
     ports:
-      - "9000:9000"
+      - "9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - portainerVolume:/data
     restart: always
   swagger:
     image: swaggerapi/swagger-editor
@@ -55,9 +57,14 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./html:/usr/share/nginx/html
+      - ./html:/usr/share/nginx/html:ro
+      - ./nginx:/etc/nginx/conf.d:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    links:
+      - portainer
     restart: always
 volumes:
   redisVolume: {}
   postgresVolume: {}
   pgadminVolume: {}
+  portainerVolume: {}
