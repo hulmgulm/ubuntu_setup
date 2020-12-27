@@ -10,8 +10,6 @@ services:
     command: redis-server --appendonly yes
   redis-commander:
     image: rediscommander/redis-commander
-    ports:
-      - "8081"
     restart: always
     environment:
       REDIS_HOST: redis
@@ -28,8 +26,6 @@ services:
       POSTGRES_PASSWORD: opsbridge
   pgadmin:
     image: dpage/pgadmin4
-    ports:
-      - "80"
     volumes:
       - pgadminVolume:/var/lib/pgadmin
     restart: always
@@ -41,16 +37,12 @@ services:
   portainer:
     image: portainer/portainer-ce
     command: -H unix:///var/run/docker.sock
-    ports:
-      - "9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainerVolume:/data
     restart: always
   swagger:
     image: swaggerapi/swagger-editor
-    ports:
-      - "8080"
     restart: always
   nginx:
     build:
