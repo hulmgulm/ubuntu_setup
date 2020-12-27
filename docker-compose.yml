@@ -53,19 +53,23 @@ services:
       - "8080"
     restart: always
   nginx:
-    image: nginx:alpine
+    build:
+      context: nginx
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ./html:/usr/share/nginx/html:ro
-      - ./nginx:/etc/nginx/conf.d:ro
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx/html:/usr/share/nginx/html:ro
     links:
       - portainer
       - pgadmin
       - redis-commander
       - swagger
     restart: always
+    environment:
+      HOSTNAME: ${HOSTNAME}
 volumes:
   redisVolume: {}
   postgresVolume: {}
