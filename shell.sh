@@ -50,6 +50,9 @@ if [[ \`uname -a\` == *"microsoft"* ]]; then
       PATH="\$PATH:\${directory}AppData/Local/Programs/Microsoft VS Code/bin"
     fi
   done
+  if [ -f "/mnt/c/Program Files/Microsoft VS Code/bin/code" ]; then
+    PATH="\$PATH:/mnt/c/Program Files/Microsoft VS Code/bin/code"
+  fi
 fi
 
 # print motd
