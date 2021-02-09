@@ -2,7 +2,7 @@
 Installs everything needed inside WSL Ubuntu 20.04:
 * zsh
 * oh-my-zsh + theme
-* adjustmenst for MobaXterm
+* adjustments for MobaXterm
 
 # node.sh
 Installs NodeJs 14.x
