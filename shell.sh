@@ -37,6 +37,14 @@ bindkey '^[[F' end-of-line
 if [ -f ~/.profile ]; then
     . ~/.profile
 fi
+
+# Fix broken zsh_history file
+if [ -f ~/.zsh_history ]; then
+  mv ~/.zsh_history ~/.zsh_history_bad
+  strings ~/.zsh_history_bad > ~/.zsh_history
+  fc -R ~/.zsh_history
+  rm ~/.zsh_history_bad
+fi
 EOT
 
 echo "Configuring profile ..."
