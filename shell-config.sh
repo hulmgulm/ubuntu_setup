@@ -1,18 +1,6 @@
 #!/bin/bash
 set -ex
 
-echo "Updating installation ..."
-sudo apt update
-sudo apt upgrade -y
-
-echo "Installing zsh ..."
-sudo apt install -y zsh git wget
-
-if [ ! -z "$HTTP_PROXY" ]; then
-  WGET_PROXY="-e use_proxy=yes -e https_proxy=$HTTP_PROXY"
-fi
-sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh $WGET_PROXY -O -)"
-
 echo "Configuring zsh ..."
 wget https://raw.githubusercontent.com/hulmgulm/Cobalt2-iterm/master/cobalt2.zsh-theme $WGET_PROXY -O ~/.oh-my-zsh/custom/themes/cobalt2.zsh-theme
 
