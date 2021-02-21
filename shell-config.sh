@@ -51,6 +51,9 @@ if [[ \`uname -a\` == *"microsoft"* ]]; then
   fi
 fi
 
+# start ssh-agent for git authentication
+ssh-agent
+
 # print motd
 sudo /usr/sbin/update-motd
 EOT
