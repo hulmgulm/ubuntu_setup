@@ -37,6 +37,8 @@ EOT
 
 echo "Configuring profile ..."
 echo 'hulmi ALL=(ALL) NOPASSWD: /usr/sbin/update-motd' | sudo EDITOR='tee -a' visudo
+echo 'hulmi ALL=(ALL) NOPASSWD: /sbin/hwclock' | sudo EDITOR='tee -a' visudo
+
 cat <<EOT >> ~/.profile
 
 # add VS Code to path on WSL
@@ -53,6 +55,9 @@ fi
 
 # start ssh-agent for git authentication
 ssh-agent
+
+# sync clock with hwclock
+sudo hwclock -s
 
 # print motd
 sudo /usr/sbin/update-motd
