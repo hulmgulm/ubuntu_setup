@@ -63,6 +63,7 @@ services:
     restart: always
     environment:
       HOSTNAME: ${HOSTNAME}
+      WSL_IP: ${WSL_IP}
 volumes:
   redisVolume: {}
   postgresVolume: {}
