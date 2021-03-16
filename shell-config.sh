@@ -35,6 +35,14 @@ if [ -f ~/.zsh_history ]; then
 fi
 EOT
 
+sed -i '1 i\# detect if proxy config is needed\
+ping web-proxy.eu.softwaregrp.net -c 1 > /dev/null\
+if [ "\$?" = "0" ]; then\
+  export HTTP_PROXY=http://web-proxy.eu.softwaregrp.net:8080\
+  export HTTPS_PROXY=\$HTTP_PROXY\
+fi\
+' ~/.zshrc
+
 echo "Configuring profile ..."
 echo 'hulmi ALL=(ALL) NOPASSWD: /usr/sbin/update-motd' | sudo EDITOR='tee -a' visudo
 echo 'hulmi ALL=(ALL) NOPASSWD: /sbin/hwclock' | sudo EDITOR='tee -a' visudo
@@ -66,4 +74,3 @@ EOT
 zsh
 
 source ~/.zshrc
-
