@@ -7,7 +7,7 @@ services:
     volumes:
       - redisVolume:/data
     restart: always
-    command: redis-server --appendonly yes
+    command: redis-server
   redis-commander:
     image: rediscommander/redis-commander
     restart: always
@@ -25,7 +25,7 @@ services:
     environment:
       POSTGRES_PASSWORD: opsbridge
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:5
     volumes:
       - pgadminVolume:/var/lib/pgadmin
     restart: always

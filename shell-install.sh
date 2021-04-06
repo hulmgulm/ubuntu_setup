@@ -6,7 +6,7 @@ sudo apt update
 sudo apt upgrade -y
 
 echo "Installing zsh ..."
-sudo apt install -y zsh git wget binutils
+sudo apt install -y zsh git wget binutils jq
 
 if [ ! -z "$HTTP_PROXY" ]; then
   WGET_PROXY="-e use_proxy=yes -e https_proxy=$HTTP_PROXY"
