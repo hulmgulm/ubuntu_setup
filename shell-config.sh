@@ -1,18 +1,6 @@
 #!/bin/bash
 set -ex
 
-echo "Updating installation ..."
-sudo apt update
-sudo apt upgrade -y
-
-echo "Installing zsh ..."
-sudo apt install -y zsh git wget
-
-if [ ! -z "$HTTP_PROXY" ]; then
-  WGET_PROXY="-e use_proxy=yes -e https_proxy=$HTTP_PROXY"
-fi
-sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh $WGET_PROXY -O -)"
-
 echo "Configuring zsh ..."
 wget https://raw.githubusercontent.com/hulmgulm/Cobalt2-iterm/master/cobalt2.zsh-theme $WGET_PROXY -O ~/.oh-my-zsh/custom/themes/cobalt2.zsh-theme
 
@@ -47,8 +35,18 @@ if [ -f ~/.zsh_history ]; then
 fi
 EOT
 
+sed -i '1 i\# detect if proxy config is needed\
+ping web-proxy.eu.softwaregrp.net -c 1 > /dev/null\
+if [ "\$?" = "0" ]; then\
+  export HTTP_PROXY=http://web-proxy.eu.softwaregrp.net:8080\
+  export HTTPS_PROXY=\$HTTP_PROXY\
+fi\
+' ~/.zshrc
+
 echo "Configuring profile ..."
 echo 'hulmi ALL=(ALL) NOPASSWD: /usr/sbin/update-motd' | sudo EDITOR='tee -a' visudo
+echo 'hulmi ALL=(ALL) NOPASSWD: /sbin/hwclock' | sudo EDITOR='tee -a' visudo
+
 cat <<EOT >> ~/.profile
 
 # add VS Code to path on WSL
@@ -63,6 +61,12 @@ if [[ \`uname -a\` == *"microsoft"* ]]; then
   fi
 fi
 
+# start ssh-agent for git authentication
+ssh-agent
+
+# sync clock with hwclock
+sudo hwclock -s
+
 # print motd
 sudo /usr/sbin/update-motd
 EOT
@@ -70,4 +74,3 @@ EOT
 zsh
 
 source ~/.zshrc
-
