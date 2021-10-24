@@ -2,7 +2,7 @@
 set -ex
 
 echo "Installing NodeJs and build tools ..."
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt install -y nodejs
 
 echo "Installing build tools for native modules ..."
