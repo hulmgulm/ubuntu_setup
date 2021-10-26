@@ -24,3 +24,11 @@ Run the following command to force pull of images:
 
 `docker-compose up --force-recreate --build -d`
 
+# Windows Setup
+* allow `C:\Windows\System32\wsl.exe` through Windows firewall
+* create `C:\Users\me\.wslconfig` with content:
+
+```
+[wsl2]
+localhostForwarding=true
+````
