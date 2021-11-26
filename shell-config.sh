@@ -1,6 +1,14 @@
 #!/bin/bash
 set -ex
 
+# detect if proxy config is needed
+ping web-proxy.eu.softwaregrp.net -c 1 > /dev/null
+if [ "$?" = "0" ]; then
+  export HTTP_PROXY=http://web-proxy.eu.softwaregrp.net:8080
+  export HTTPS_PROXY=$HTTP_PROXY
+  WGET_PROXY="-e use_proxy=yes -e https_proxy=$HTTP_PROXY"
+fi
+
 echo "Configuring zsh ..."
 wget https://raw.githubusercontent.com/hulmgulm/Cobalt2-iterm/master/cobalt2.zsh-theme $WGET_PROXY -O ~/.oh-my-zsh/custom/themes/cobalt2.zsh-theme
 
@@ -68,7 +76,10 @@ ssh-agent
 sudo hwclock -s
 
 # print motd
-sudo /usr/sbin/update-motd
+if command -v /usr/sbin/update-motd &> /dev/null
+then
+  sudo /usr/sbin/update-motd
+fi
 EOT
 
 zsh

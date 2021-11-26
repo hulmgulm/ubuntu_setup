@@ -1,12 +1,23 @@
 #!/bin/bash
 set -ex
 
+# checking which installer to use
+if ! command -v apt &> /dev/null
+then
+  # use yum on centos
+  INSTALLER=yum
+  sudo yum install -y yum-utils
+  sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+else
+  INSTALLER=apt
+  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+fi
+
 echo "Installing docker ..."
-sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-sudo apt update
-sudo apt install -y docker-ce
+sudo $INSTALLER install -y apt-transport-https ca-certificates curl software-properties-common
+sudo $INSTALLER update
+sudo $INSTALLER install -y docker-ce docker-ce-cli containerd.io
 sudo usermod -aG docker ${USER}
 echo 'hulmi ALL=(ALL) NOPASSWD: /usr/bin/dockerd' | sudo EDITOR='tee -a' visudo
 
