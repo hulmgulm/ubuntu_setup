@@ -25,7 +25,7 @@ services:
     environment:
       POSTGRES_PASSWORD: opsbridge
   pgadmin:
-    image: dpage/pgadmin4:5
+    image: dpage/pgadmin4:6
     volumes:
       - pgadminVolume:/var/lib/pgadmin
     restart: always
