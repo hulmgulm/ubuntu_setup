@@ -2,7 +2,7 @@
 set -ex
 
 # detect if proxy config is needed
-ping web-proxy.eu.softwaregrp.net -c 1 > /dev/null
+ping web-proxy.eu.softwaregrp.net -c 1 || true > /dev/null
 if [ "$?" = "0" ]; then
   export HTTP_PROXY=http://web-proxy.eu.softwaregrp.net:8080
   export HTTPS_PROXY=$HTTP_PROXY
