@@ -1,14 +1,6 @@
 #!/bin/bash
 set -ex
 
-# detect if proxy config is needed
-if ping web-proxy.eu.softwaregrp.net -c 1 > /dev/null
-then
-  export HTTP_PROXY=http://web-proxy.eu.softwaregrp.net:8080
-  export HTTPS_PROXY=$HTTP_PROXY
-  WGET_PROXY="-e use_proxy=yes -e https_proxy=$HTTP_PROXY"
-fi
-
 # checking which installer to use
 INSTALLER=apt
 if ! command -v apt &> /dev/null
