@@ -1,8 +1,9 @@
 #!/bin/bash
+# # sh -c "$(wget https://raw.githubusercontent.com/hulmgulm/ubuntu_setup/refs/heads/main/shell-config.sh -O -)"
 set -ex
 
 echo "Configuring zsh ..."
-wget https://raw.githubusercontent.com/hulmgulm/Cobalt2-iterm/master/cobalt2.zsh-theme $WGET_PROXY -O ~/.oh-my-zsh/custom/themes/cobalt2.zsh-theme
+wget https://raw.githubusercontent.com/hulmgulm/Cobalt2-iterm/master/cobalt2.zsh-theme -O ~/.oh-my-zsh/custom/themes/cobalt2.zsh-theme
 
 sed -i 's/ZSH_THEME=".*"/ZSH_THEME="cobalt2"/' ~/.zshrc
 sed -i 's/plugins=(.*)/plugins=(git extract colored-man-pages)/' ~/.zshrc
